@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import {fileURLToPath} from 'url';
 import routes from './route.js'
 import fileUpload from 'express-fileupload';
@@ -36,6 +37,11 @@ app.use(function (err, req, res, next) {
 })
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const assetsPath = path.join(__dirname, "assets");
+if (!fs.existsSync(assetsPath)) {
+  fs.mkdirSync(assetsPath, { recursive: true });
+}
 
 let port = process.env.PORT;
 
